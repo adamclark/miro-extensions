@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script type="text/javascript">
+		const icon = '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"></circle>'
+
+		miro.onReady(() => {
+			miro.initialize({
+				extensionPoints: {
+					bottomBar: async () => {
+						const currentUser = await miro.getCurrentUser()
+						const signedIn = currentUser.signedIn
+						if (signedIn) {
+							return {
+								title: 'Stop The World!',
+								svgIcon: icon,
+								onClick: stopTheWorld
+							}
+						}
+					}
+				}
+			})
+		})
+
+		function stopTheWorld() {
+			alert('Stop The World!')
+            let sticker = (await miro.board.widgets.create({type:'sticker', scale: 1000.0, text: 'Stop The World'}))[0]
+		}
+
+    </script>
+</head>
+</html>
